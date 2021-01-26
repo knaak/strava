@@ -40,8 +40,11 @@ for stat in statistics:
 
     item = statistics[stat]    
 
+    if (item['pr'] < 0): continue
+    if (item['kom'] < 0): continue
+
     distance_to_kom = item["pr"] - item["kom"]
-    distance_to_qom = item["pr"] - item["qom"]
+    #distance_to_qom = item["pr"] - item["qom"]
 
     if (distance_to_kom <= 0):
         print("You have this KOM", item["name"])

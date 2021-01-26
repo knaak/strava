@@ -31,6 +31,9 @@ def getSegmentPath(segmentid):
     return str.format("cache/segment_{0}.json", segmentid)
 
 def hourandMinuteToSeconds(time):
+    if (time is None):
+        return -1
+    
     data = time.split(":")
     sum = 0
     count = 0
