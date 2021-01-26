@@ -9,7 +9,7 @@ if (path.exists(ssdk.path_tokens)):
   print("delete strava_tokens.json first")
   quit()
 
-with open('credentials.json', 'r') as credentials:
+with open(ssdk.path_credentials, 'r') as credentials:
   credential = json.load(credentials)
 
 for verifycredentials in ['client_id', 'client_secret', 'code']:
