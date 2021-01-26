@@ -35,10 +35,19 @@ with (open("data/run.json", "w") as file):
     json.dump(statistics, file)
         
 for stat in statistics:
+    distance_in_seconds = 5
+    mininum_athletes = 50
+
     item = statistics[stat]    
 
     distance_to_kom = item["pr"] - item["kom"]
     distance_to_qom = item["pr"] - item["qom"]
+
+    if (distance_to_kom <= 0):
+        print("You have this KOM", item["name"])
+        continue
+    
+    percent_to_kom = item["kom"] / item["pr"]
 
     
     result = list()
@@ -48,23 +57,29 @@ for stat in statistics:
                         item["id"])
         ))
 
+    if (distance_to_kom <= distance_in_seconds):
+        result.append(str.format("You are within {0} seconds of KOM (pr:{1} sec, kom:{2} sec)", 
+            distance_to_kom,
+            item["pr"], item["kom"]))
 
-    if (distance_to_kom <= 5):
-        result.append(str.format("{0} withing 5 seconds of KOM (pr:{1}, kom:{2})", 
-            item["name"],item["pr"], item["kom"]))
+    if (percent_to_kom > 0.9):
+        result.append(str.format("You are within {0} seconds of KOM (pr:{1} sec, kom:{2} sec)", 
+            distance_to_kom,
+            item["pr"], item["kom"]))
+
     
-    #if (distance_to_qom <= 5):
-    #    result.append(str.format("{0} withing 5 seconds of QOM (pr:{1}, qom:{2})", 
-    #        item["name"],item["pr"], item["qom"]))
+    #if (distance_to_qom <= distance_in_seconds):
+    #    result.append(str.format("You are within {0} seconds of QOM (pr:{1} sec, qom:{2} sec)", 
+    #        distance_in_seconds,
+    #        item["pr"], item["qom"]))
 
-    if (item["athletes"] <= 50):
-        result.append(str.format("{0} has only {1} atheletes all-time, you can take them!", 
-            item["name"],item["athletes"]))
-
-        print(item["name"],item["id"], "only has", item["athletes"], " athletes that have attempted, you can take them")
+    if (item["athletes"] <= mininum_athletes):
+        result.append(str.format("Only {0} atheletes all-time, you can take them!", 
+            item["athletes"]))        
 
     if (len(result)> 1):
         print (result)
+        print("-------------\n")
 
 
 
