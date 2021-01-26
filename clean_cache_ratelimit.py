@@ -5,15 +5,19 @@ from os import path
 for filename in os.listdir("cache"):
     with (open("cache/" + filename) as jsonfile):
         data = json.load(jsonfile)
-
+        
         try:
-            message = data["message"]
-
-            if (message.startswith("Rate Limit Exceeded")):
-                print("will remove:", filename)
-                os.remove("cache/"+filename)
+            if (not data["message"]): continue
         except:
             continue
+
+        message = data["message"]
+
+        if (message.startswith("Rate Limit Exceeded")):
+            jsonfile.close()
+            os.remove("cache/"+filename)
+            print("removed", filename)
+            
         
 
     

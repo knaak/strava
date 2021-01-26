@@ -6,7 +6,7 @@ access_tokens = ssdk.getTokens()
 
 # Make Strava auth API call with your 
 # client_code, client_secret and code
-url_mask = "https://www.strava.com/api/v3/athlete/activities?access_token={0}&per_page=20&include_all_efforts=true"
+url_mask = "https://www.strava.com/api/v3/athlete/activities?access_token={0}&per_page=40&include_all_efforts=true"
 response = requests.get(
                     url = url_mask.format(access_tokens['access_token'])
                 )

@@ -29,3 +29,21 @@ def getSegmentInstancePath(segmentid):
 
 def getSegmentPath(segmentid):
     return str.format("cache/segment_{0}.json", segmentid)
+
+def hourandMinuteToSeconds(time):
+    data = time.split(":")
+    sum = 0
+    count = 0
+    factor = [1, 60, 3600]
+
+    if (len(data) == 1):
+        # remove that pesky "s" at the end
+        return data[0][:len(data[0])-1]
+
+    if (len(data)> 3):
+        print("WARN: Time is too big, check strava_sdk hourMinuteToSeconds method")
+
+    for item in reversed(data):
+        sum = sum + (int(item) * factor[count])
+        count = count +1
+    return sum

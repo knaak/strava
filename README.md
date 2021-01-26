@@ -20,6 +20,8 @@ Troubleshooting:
 If you get rate limited or you mistakenly write cache files that are limited, use the clean_cache_ratelimit.py to remove.
 If your tokens expire, trying running refresh tokens to get a new one.
 
+need a new code?
+http://www.strava.com/oauth/authorize?client_id=[REPLACE_WITH_YOUR_CLIENT_ID]&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=profile:read_all,activity:read_all
 
 
 helped by:
