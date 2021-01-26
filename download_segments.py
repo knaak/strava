@@ -1,6 +1,7 @@
 import requests
 import json
 import strava_sdk as ssdk
+import time
 
 import os.path
 from os import path
@@ -25,9 +26,9 @@ for segment_data_filename in os.listdir("cache"):
 
     if (not response.ok):
         print("error loading segment")
-        if (segment["message"].startswith("Rate Limit Exceeded")): 
-            print("Rate Limit Exceeded, wait 15 minutes and try again")
-            break
+        if (ssdk.isRateLimited(segment)):
+            print("Rate limited, sleeping for 15 minutes")
+            time.sleep(1000)
         print("attempting to continue")
         continue
 

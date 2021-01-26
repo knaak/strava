@@ -3,6 +3,7 @@ from pandas.io.json import json_normalize
 import json
 import csv
 import strava_sdk as ssdk
+import time
 
 import os.path
 from os import path
@@ -29,6 +30,9 @@ for activity in activities:
         
         if (not response.ok):
             print("Error downloading", activity_id)
+            if (ssdk.isRateLimited(detailed_activity)):
+                print("Rate limited, sleeping for 15 minutes")
+                time.sleep(1000)
             continue
     
         for segment in detailed_activity["segment_efforts"]:

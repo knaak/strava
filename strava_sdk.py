@@ -47,3 +47,10 @@ def hourandMinuteToSeconds(time):
         sum = sum + (int(item) * factor[count])
         count = count +1
     return sum
+
+def isRateLimited(data):
+    try :
+     if (data["message"].startswith("Rate Limit Exceeded")): 
+         return True
+    except:
+        return False

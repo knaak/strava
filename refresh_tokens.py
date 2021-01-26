@@ -3,22 +3,21 @@ import json
 import time
 import strava_sdk as ssdk
 
+access_token = ssdk.getTokens()
 
-with open(ssdk.path_tokens) as json_file:
-    strava_tokens = json.load(json_file)
-
-if not strava_tokens['expires_at'] < time.time():
+if not access_token['expires_at'] < time.time():
     print("Tokens not expired")
     quit()
 
 credential = ssdk.getCredentials()
+
 response = requests.post(
                     url = 'https://www.strava.com/oauth/token',
                     data = {
                         'client_id': credential['client_id'],
                         'client_secret': credential['client_secret'],
-                        'code': credential['code'],
-                        'grant_type': 'authorization_code'
+                        'grant_type' : 'refresh_token',
+                        'refresh_token' : access_token['refresh_token']
                         }
                 )
 
@@ -31,9 +30,5 @@ if (not response.ok):
 
 with open(ssdk.path_tokens, 'w') as outfile:
     json.dump(new_strava_tokens, outfile)
-
-with open('strava_tokens.json') as check:
-    data = json.load(check)
-    print(data)
 
 print("done")
